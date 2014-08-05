@@ -12,11 +12,18 @@
 
 using namespace std;
 
+// dichiaro le variabili contenenti il conteggio delle righe colonne, la parola e le mosse
+
 int R, C;
 char parola[10000];
 char mosse[10000];
 char tabella[101][101];
 
+/* creo una funzione ricorsiva che partendo dalle coordinate e dalla lettera da cercare ritorna:
+    Vero se si è aggiunta alla fine della parola;
+    Vero se una delle due mosse possibili.
+infine aggiunge alla variabile mosse la mossa eseguita.
+ */
 bool cerca(int x, int y, int char_pos){
     if(char_pos == strlen(parola))
         return true;
@@ -34,13 +41,16 @@ bool cerca(int x, int y, int char_pos){
 
 int main(int argc, const char * argv[])
 {
+    //il file di input e output E leggo R, C e parola
     ifstream in("input.txt");
     ofstream out("output.txt");
     in >> R >> C;
     in >> parola;
+    // leggo le R righe successive E inserisco tutte le lettere nella variabile tabella
     for (int i = 0; i < R; i++) {
         in >> tabella[i];
     }
+    // controllo se la funzione ricorsiva ritorna vero (se è stato possibile trovare tutte le lettere) E se è vero cancello l'ultima lettera aggiunta al vettore mosse. se falso scrivo "assente"
     if(cerca(0, 0, 0)){
         mosse[strlen(parola) - 1] = '\0';
         out << mosse;
